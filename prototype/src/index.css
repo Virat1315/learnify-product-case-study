@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2b2440;
+  --color-grape: #6d4aff;
+  --color-grape-dark: #5538d4;
+  --color-sun: #ffb830;
+  --color-sun-dark: #e09a10;
+  --color-mint: #2ec4a6;
+  --color-mint-dark: #1fa28a;
+  --color-coral: #ff6b7a;
+  --color-paper: #f7f5ff;
+  --font-sans: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+  background: #ece8ff;
+}
+
+/* soft floating blobs behind the phone */
+.backdrop {
+  background:
+    radial-gradient(420px 420px at 12% 18%, rgba(109, 74, 255, 0.16), transparent 70%),
+    radial-gradient(380px 380px at 88% 24%, rgba(46, 196, 166, 0.18), transparent 70%),
+    radial-gradient(420px 420px at 70% 88%, rgba(255, 184, 48, 0.16), transparent 70%),
+    linear-gradient(135deg, #ece8ff, #e4f6f0);
+}
+
+/* screen-to-screen transition inside the phone */
+@keyframes screen-in {
+  0% { opacity: 0; transform: translateY(10px) scale(0.99); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.screen-in { animation: screen-in 0.28s ease-out both; }
+
+/* moving shine on progress bars */
+@keyframes shine-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(260%); }
+}
+.shine { position: relative; overflow: hidden; }
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: shine-sweep 2.2s ease-in-out infinite;
+}
+
+/* chunky "press down" buttons */
+.btn-3d {
+  transition: transform 0.06s ease, box-shadow 0.06s ease;
+}
+.btn-3d:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.pop-in { animation: pop-in 0.45s ease-out both; }
+
+@keyframes rise {
+  0% { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.rise { animation: rise 0.4s ease-out both; }
+.rise-late { animation: rise 0.4s ease-out 0.25s both; }
+
+@keyframes fill-bar {
+  from { width: var(--from-w); }
+  to { width: var(--to-w); }
+}
+.fill-bar { animation: fill-bar 0.9s 0.3s ease-out both; }
+
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120px) rotate(200deg); opacity: 0; }
+}
+.confetti {
+  position: absolute;
+  animation: float-up 1.6s ease-out both;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.wiggle { animation: wiggle 1.2s ease-in-out infinite; }

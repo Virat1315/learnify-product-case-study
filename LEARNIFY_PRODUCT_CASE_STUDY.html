@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Learnify - Reducing the Lesson-3 Drop-off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b2440;
+    --grape: #6d4aff;
+    --grape-dark: #5538d4;
+    --mint: #2ec4a6;
+    --sun: #ffb830;
+    --coral: #ff6b7a;
+    --paper: #f7f5ff;
+    --muted: #8b85a0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #444; font-family: "Nunito", "Segoe UI", system-ui, sans-serif; color: var(--ink); }
+  @page { size: 1280px 720px; margin: 0; }
+  .slide {
+    width: 1280px; height: 720px; background: #fff;
+    position: relative; overflow: hidden; page-break-after: always;
+    padding: 56px 72px 48px; margin: 0 auto 24px;
+  }
+  @media print { .slide { margin: 0; } }
+  .footer {
+    position: absolute; bottom: 22px; left: 72px; right: 72px;
+    display: flex; justify-content: space-between;
+    font-size: 12px; font-weight: 600; color: var(--muted);
+  }
+  .kicker { font-size: 14px; font-weight: 800; letter-spacing: 2.5px; color: var(--grape); text-transform: uppercase; }
+  h1 { font-size: 54px; font-weight: 800; line-height: 1.1; }
+  h2 { font-size: 36px; font-weight: 800; margin-top: 8px; }
+  .card { background: var(--paper); border-radius: 20px; padding: 24px 28px; }
+
+  /* slide 1 */
+  .s1 { background: linear-gradient(135deg, #6d4aff 0%, #5538d4 60%, #43299e 100%); color: #fff; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 48px; }
+  .s1 .kicker { color: var(--sun); }
+  .s1 h1 { font-size: 60px; max-width: 720px; }
+  .s1 .sub { margin-top: 20px; font-size: 22px; color: rgba(255,255,255,.85); font-weight: 600; max-width: 680px; }
+  .s1 .chips { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .s1 .chip { background: rgba(255,255,255,.14); border-radius: 999px; padding: 10px 20px; font-weight: 700; font-size: 16px; }
+  .s1 .sparkle { position: absolute; color: rgba(255,255,255,.18); font-size: 30px; }
+  .s1 .phone { background: var(--paper); border-color: #1c1733; transform: rotate(3deg); box-shadow: 0 26px 60px rgba(0,0,0,.4); flex-shrink: 0; }
+
+  /* funnel */
+  .funnel { display: flex; align-items: flex-end; gap: 28px; margin-top: 44px; height: 300px; }
+  .fcol { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; text-align: center; }
+  .fbar { border-radius: 14px 14px 0 0; }
+  .flabel { margin-top: 12px; font-weight: 700; font-size: 16px; }
+  .fpct { font-weight: 800; font-size: 22px; margin-bottom: 8px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 36px; }
+  .list li { margin: 12px 0 12px 22px; font-size: 19px; line-height: 1.45; }
+  .tag { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 1px; padding: 6px 14px; border-radius: 999px; margin-bottom: 14px; }
+
+  /* hypothesis */
+  .quote { margin-top: 40px; background: var(--paper); border-left: 10px solid var(--grape); border-radius: 0 24px 24px 0; padding: 40px 48px; font-size: 30px; font-weight: 700; line-height: 1.45; }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 36px; }
+
+  /* loop */
+  .loop { display: flex; align-items: stretch; gap: 0; margin-top: 48px; }
+  .loop-step { flex: 1; background: var(--paper); border-radius: 20px; padding: 24px 20px; text-align: center; }
+  .loop-arrow { display: flex; align-items: center; padding: 0 10px; font-size: 30px; color: var(--grape); font-weight: 800; }
+  .loop-emoji { font-size: 44px; }
+  .loop-title { font-weight: 800; font-size: 19px; margin-top: 10px; }
+  .loop-sub { font-size: 15px; color: var(--muted); font-weight: 600; margin-top: 6px; line-height: 1.35; }
+
+  table.plain { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 18px; }
+  table.plain th { text-align: left; padding: 12px 18px; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  table.plain td { padding: 14px 18px; background: var(--paper); font-weight: 600; line-height: 1.4; }
+  table.plain tr td:first-child { border-radius: 14px 0 0 14px; font-weight: 800; white-space: nowrap; }
+  table.plain tr td:last-child { border-radius: 0 14px 14px 0; }
+  table.plain tbody tr { border-bottom: 10px solid #fff; }
+
+  /* journey */
+  .journey { display: flex; gap: 14px; margin-top: 44px; }
+  .jstep { flex: 1; background: var(--paper); border-radius: 18px; padding: 20px 16px; text-align: center; position: relative; }
+  .jstep .je { font-size: 34px; }
+  .jstep .jt { font-weight: 800; font-size: 16px; margin-top: 8px; }
+  .jstep .jd { font-size: 13.5px; color: var(--muted); font-weight: 600; margin-top: 6px; line-height: 1.35; }
+
+  /* phones */
+  .phones { display: flex; gap: 36px; margin-top: 36px; justify-content: center; }
+  .phone { width: 218px; height: 420px; background: var(--paper); border-radius: 26px; border: 5px solid var(--ink); padding: 14px 12px; font-size: 11px; }
+  .phone .cap { text-align: center; font-weight: 800; font-size: 14px; margin-top: 12px; }
+  .p-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .p-ava { width: 30px; height: 30px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .p-name { font-weight: 800; font-size: 12px; }
+  .p-quest { background: linear-gradient(135deg, var(--grape), var(--grape-dark)); border-radius: 16px; color: #fff; padding: 12px; }
+  .p-label { font-size: 8px; font-weight: 800; letter-spacing: 1px; opacity: .75; }
+  .p-qt { font-weight: 800; font-size: 14px; margin-top: 4px; }
+  .p-bar { height: 8px; background: rgba(255,255,255,.25); border-radius: 99px; margin-top: 10px; overflow: hidden; }
+  .p-bar > div { height: 100%; background: var(--sun); border-radius: 99px; }
+  .p-reward { font-size: 9.5px; font-weight: 700; background: rgba(255,255,255,.16); border-radius: 99px; padding: 4px 8px; display: inline-block; margin-top: 10px; }
+  .p-cta { background: var(--mint); color: #fff; border-radius: 14px; text-align: center; font-weight: 800; font-size: 12px; padding: 10px; margin-top: 12px; box-shadow: 0 3px 0 #1fa28a; }
+  .p-cta.sun { background: var(--sun); box-shadow: 0 3px 0 #e09a10; }
+  .p-cta.grape { background: var(--grape); box-shadow: 0 3px 0 #43299e; }
+  .p-card { background: #fff; border-radius: 14px; padding: 10px; margin-top: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .p-card .why { background: var(--paper); border-radius: 8px; padding: 5px 7px; margin-top: 6px; font-size: 9px; color: var(--muted); font-weight: 600; }
+  .p-center { text-align: center; }
+  .p-big { font-size: 44px; margin-top: 26px; }
+  .p-h { font-weight: 800; font-size: 16px; margin-top: 8px; }
+  .p-sub { font-size: 10px; color: var(--muted); font-weight: 600; margin-top: 4px; }
+  .p-xp { display: inline-block; background: rgba(255,184,48,.25); color: #b57d0d; font-weight: 800; border-radius: 99px; padding: 5px 12px; font-size: 11px; margin-top: 10px; }
+
+  /* metrics */
+  .mgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 40px; }
+  .mcard { background: var(--paper); border-radius: 20px; padding: 26px; border-top: 8px solid var(--grape); }
+  .mcard.mint { border-color: var(--mint); }
+  .mcard.sun { border-color: var(--sun); }
+  .mnum { font-size: 15px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); }
+  .mname { font-size: 23px; font-weight: 800; margin-top: 8px; line-height: 1.2; }
+  .mwhy { font-size: 16px; color: var(--ink); font-weight: 600; margin-top: 12px; line-height: 1.45; }
+  .guard { margin-top: 30px; background: #fff5f6; border: 2px solid #ffd3d8; border-radius: 18px; padding: 20px 26px; font-size: 17px; font-weight: 600; line-height: 1.5; }
+
+  /* ab test */
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+  .ab .card { padding: 20px 24px; }
+  .ab h4 { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .ab p { font-size: 17px; font-weight: 600; line-height: 1.45; }
+  .reco { margin-top: 26px; background: linear-gradient(135deg, var(--grape), var(--grape-dark)); color: #fff; border-radius: 20px; padding: 26px 32px; font-size: 20px; font-weight: 700; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- 1 · title -->
+<section class="slide s1">
+  <span class="sparkle" style="top: 60px; left: 640px;">✦</span>
+  <span class="sparkle" style="top: 540px; left: 180px; font-size: 20px;">✦</span>
+  <span class="sparkle" style="top: 150px; left: 900px; font-size: 22px;">✦</span>
+  <div>
+    <p class="kicker">Product case study · Product Intern assignment</p>
+    <h1>Learnify: Reducing the Lesson-3 Drop-off</h1>
+    <p class="sub">Why students quit after three lessons - and one feature to change it.</p>
+    <div class="chips">
+      <span class="chip">🗺️ Feature: Quests</span>
+      <span class="chip">🤖 AI: personalized suggestions</span>
+      <span class="chip">🧪 Validated with an A/B test</span>
+    </div>
+  </div>
+  <div class="phone">
+    <div class="p-head"><div class="p-ava">🙂</div><div><div class="p-name">Hi, Aarav!</div><div style="font-size:9px;color:var(--muted);font-weight:700;">Lv 4 · 80 XP to go</div></div></div>
+    <div class="p-quest">
+      <div class="p-label">ACTIVE QUEST · 2/3 LESSONS</div>
+      <div class="p-qt">🚀 Space Explorer</div>
+      <div class="p-bar"><div style="width:66%"></div></div>
+      <div class="p-reward">Playing for: 🧑‍🚀 Astro Helmet</div>
+    </div>
+    <div class="p-cta">▶ Next up: Forces &amp; Motion</div>
+    <div class="p-card" style="text-align:center; font-weight:700; color:var(--muted);">🔬 Science &nbsp; ➗ Math &nbsp; 📚 English</div>
+    <div class="p-card"><div class="p-label" style="color:var(--muted);">THIS WEEK</div><div style="font-weight:800; font-size:12px; margin-top:4px;">✅ ✅ ⬜ ✅ ⬜</div></div>
+  </div>
+  <div class="footer" style="color: rgba(255,255,255,.55);"><span>Learnify · Quests</span><span>1</span></div>
+</section>
+
+<!-- 2 · problem -->
+<section class="slide">
+  <p class="kicker">The problem</p>
+  <h2>70% of students stop after just three lessons</h2>
+  <div class="funnel">
+    <div class="fcol">
+      <div class="fpct">100%</div>
+      <div class="fbar" style="height: 78%; background: var(--grape);"></div>
+      <div class="flabel">Sign up<br><span style="color:var(--muted); font-size:14px;">enthusiastic ✔</span></div>
+    </div>
+    <div class="fcol">
+      <div class="fpct" style="color:var(--muted);">?</div>
+      <div class="fbar" style="height: 62%; background: repeating-linear-gradient(45deg, #d9d3f2, #d9d3f2 10px, #ece8ff 10px, #ece8ff 20px);"></div>
+      <div class="flabel">Lessons 1-3<br><span style="color:var(--muted); font-size:14px;">funnel shape unknown</span></div>
+    </div>
+    <div class="fcol">
+      <div class="fpct" style="color:var(--coral);">30%</div>
+      <div class="fbar" style="height: 24%; background: var(--coral);"></div>
+      <div class="flabel">Still learning after lesson 3<br><span style="color:var(--muted); font-size:14px;">the cliff</span></div>
+    </div>
+    <div class="fcol" style="flex: 1.6;">
+      <div class="card" style="text-align:left; height: 78%; display:flex; flex-direction:column; justify-content:center;">
+        <p style="font-size:19px; font-weight:700; line-height:1.5;">The drop happens <u>before a habit can form</u> - and it happens even though badges, levels and leaderboards already exist.</p>
+        <p style="font-size:17px; font-weight:600; color:var(--muted); margin-top:14px;">Students say rewards "aren't motivating enough." The real question: why do they stop working after lesson 3?</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>2</span></div>
+</section>
+
+<!-- 3 · know vs believe -->
+<section class="slide">
+  <p class="kicker">Being honest about the data</p>
+  <h2>What we know vs. what we believe</h2>
+  <div class="two-col">
+    <div class="card">
+      <span class="tag" style="background:#d9f5ee; color:#177a66;">FACTS</span>
+      <ul class="list">
+        <li>70% drop off after completing three lessons</li>
+        <li>Signups are enthusiastic - acquisition isn't the problem</li>
+        <li>Students say rewards aren't motivating enough</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag" style="background:#ffe9c2; color:#a06a00;">ASSUMPTIONS - plausible, unproven</span>
+      <ul class="list">
+        <li>Early badges come fast; then the next reward feels far away</li>
+        <li>Leaderboards only motivate the top few</li>
+        <li>After onboarding, there's no clear "next thing to work toward"</li>
+        <li>No strong reason to come back <em>tomorrow</em></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top: 26px; border-left: 8px solid var(--grape);">
+    <p style="font-size: 19px; font-weight: 700;">Key read: "rewards aren't motivating" is a <em>symptom students can articulate</em>. The cause may be the goal structure - not the size of the rewards.</p>
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>3</span></div>
+</section>
+
+<!-- 4 · hypothesis -->
+<section class="slide">
+  <p class="kicker">Product hypothesis</p>
+  <h2>The rewards point backwards. Nothing points forwards.</h2>
+  <div class="vs">
+    <div class="card" style="text-align:center;">
+      <p style="font-size: 40px;">🏅</p>
+      <p style="font-size: 20px; font-weight: 800; margin-top: 8px;">Today: badges &amp; levels</p>
+      <p style="font-size: 17px; font-weight: 600; color: var(--muted); margin-top: 8px;">Certify what you already did. After lesson 3, the next one is a long grind away.</p>
+    </div>
+    <div class="card" style="text-align:center; background: #efe9ff;">
+      <p style="font-size: 40px;">🎯</p>
+      <p style="font-size: 20px; font-weight: 800; margin-top: 8px;">Missing: a near goal</p>
+      <p style="font-size: 17px; font-weight: 600; color: var(--muted); margin-top: 8px;">Something the student <em>chose</em>, only a few lessons away, that makes lesson 4 worth doing today.</p>
+    </div>
+  </div>
+  <div class="quote">Students drop off after lesson 3 because the app stops giving them a meaningful short-term goal. Give every student a small, self-chosen goal with a reward they picked - and more of them will start lesson 4 and come back tomorrow.</div>
+  <div class="footer"><span>Learnify · Quests</span><span>4</span></div>
+</section>
+
+<!-- 5 · solution -->
+<section class="slide">
+  <p class="kicker">The feature - one, not five</p>
+  <h2>Quests: short goals with a reward you picked</h2>
+  <div class="loop">
+    <div class="loop-step">
+      <div class="loop-emoji">🗺️</div>
+      <div class="loop-title">Pick a quest</div>
+      <div class="loop-sub">3 suggestions, each with a "why this one for you"</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <div class="loop-emoji">🎁</div>
+      <div class="loop-title">Pick your reward</div>
+      <div class="loop-sub">Known upfront - anticipation, not gambling</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step">
+      <div class="loop-emoji">📚</div>
+      <div class="loop-title">3-5 lessons</div>
+      <div class="loop-sub">Finishable in days; progress fills after every lesson</div>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step" style="background:#efe9ff;">
+      <div class="loop-emoji">🎉</div>
+      <div class="loop-title">Celebrate → next pick</div>
+      <div class="loop-sub">There is never a moment without a next goal</div>
+    </div>
+  </div>
+  <div class="two-col" style="margin-top: 30px;">
+    <div class="card">
+      <p style="font-weight:800; font-size:18px;">Why not the obvious alternatives?</p>
+      <p style="font-size:16px; font-weight:600; color:var(--muted); margin-top:10px; line-height:1.5;">Mystery boxes = slot-machine mechanics for 12-year-olds, and no goal. Friend challenges = cold start + the leaderboard already shows competition isn't retaining the middle. Streaks = guilt when you miss a day.</p>
+    </div>
+    <div class="card" style="border-left: 8px solid var(--mint);">
+      <p style="font-weight:800; font-size:18px;">Education guardrails, by design</p>
+      <p style="font-size:16px; font-weight:600; color:var(--muted); margin-top:10px; line-height:1.5;">Rewards are cosmetic only - learning content is never locked. Quests don't expire. No nag notifications, no streak pressure, solo by default.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>5</span></div>
+</section>
+
+<!-- 6 · AI -->
+<section class="slide">
+  <p class="kicker">AI product thinking</p>
+  <h2>AI picks. Humans write.</h2>
+  <table class="plain">
+    <tbody>
+      <tr>
+        <td style="color:var(--grape);">What AI does</td>
+        <td>Ranks which 3 quests to suggest per student, and at what difficulty - using lesson history, accuracy by topic, pace, and past quest/reward picks. Surfaces a "why" line with every suggestion.</td>
+      </tr>
+      <tr>
+        <td style="color:var(--mint);">What rules do</td>
+        <td>Progress tracking, reward economy, celebrations, caps. None of this needs AI - so none of it uses AI.</td>
+      </tr>
+      <tr>
+        <td style="color:var(--sun);">Why AI beats rules here</td>
+        <td>"Always suggest the weakest subject" turns quests into homework; "always the strongest" never stretches anyone. The right next goal differs per student and shifts weekly.</td>
+      </tr>
+      <tr>
+        <td style="color:var(--coral);">Safety</td>
+        <td>No AI-generated free text ever reaches a child - quests and encouragement lines are teacher-written; AI only selects. Bad suggestion = low cost (student picks from 3; defaults exist). Only in-app learning signals, no personal data.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top: 24px; font-size: 17px; font-weight: 700; color: var(--muted);">Honest note: Quests works with simple heuristics in v1. AI improves the feature - it isn't a crutch holding it up.</p>
+  <div class="footer"><span>Learnify · Quests</span><span>6</span></div>
+</section>
+
+<!-- 7 · journey -->
+<section class="slide">
+  <p class="kicker">User journey</p>
+  <h2>Aarav, grade 7 - never wondering "why bother?"</h2>
+  <div class="journey">
+    <div class="jstep"><div class="je">📱</div><div class="jt">Opens app</div><div class="jd">Quest card front and center: 2/3 lessons, the helmet he picked</div></div>
+    <div class="jstep"><div class="je">▶️</div><div class="jt">One tap</div><div class="jd">"Next up: Forces &amp; Motion" - no browsing, no decisions</div></div>
+    <div class="jstep"><div class="je">✅</div><div class="jt">Finishes lesson</div><div class="jd">+30 XP, quest bar animates 2/3 → 3/3</div></div>
+    <div class="jstep"><div class="je">🎉</div><div class="jt">Quest complete</div><div class="jd">Astro Helmet unlocked - the reward he chose, earned</div></div>
+    <div class="jstep"><div class="je">🗺️</div><div class="jt">Picks the next</div><div class="jd">3 suggestions with "why" lines; picks Number Ninja</div></div>
+    <div class="jstep" style="background:#efe9ff;"><div class="je">🌅</div><div class="jt">Comes back</div><div class="jd">Tomorrow has a concrete goal waiting: 0/3, Robo Sidekick at stake</div></div>
+  </div>
+  <div class="card" style="margin-top: 34px;">
+    <p style="font-size: 18px; font-weight: 700; text-align:center;">The loop's job: at any moment, Aarav can answer <em>"what am I working toward, and why do I care?"</em> - and the answer is days away, not weeks.</p>
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>7</span></div>
+</section>
+
+<!-- 8 · screens -->
+<section class="slide">
+  <p class="kicker">Key screens · interactive prototype in /prototype</p>
+  <h2>Four moments that carry the loop</h2>
+  <div class="phones">
+    <div>
+      <div class="phone">
+        <div class="p-head"><div class="p-ava">🙂</div><div><div class="p-name">Hi, Aarav!</div><div style="font-size:9px;color:var(--muted);font-weight:700;">Lv 4 · 80 XP to go</div></div></div>
+        <div class="p-quest">
+          <div class="p-label">ACTIVE QUEST · 2/3 LESSONS</div>
+          <div class="p-qt">🚀 Space Explorer</div>
+          <div class="p-bar"><div style="width:66%"></div></div>
+          <div class="p-reward">Playing for: 🧑‍🚀 Astro Helmet</div>
+        </div>
+        <div class="p-cta">▶ Next up: Forces &amp; Motion</div>
+        <div class="p-card" style="text-align:center; font-weight:700; color:var(--muted);">🔬 Science &nbsp; ➗ Math &nbsp; 📚 English</div>
+      </div>
+      <p class="cap">Home - the goal owns the screen</p>
+    </div>
+    <div>
+      <div class="phone p-center">
+        <div class="p-big">🎉</div>
+        <div class="p-h">Lesson complete!</div>
+        <div class="p-sub">3/3 correct</div>
+        <div class="p-xp">+30 XP</div>
+        <div class="p-card" style="text-align:left;">
+          <div class="p-label" style="color:var(--muted);">QUEST PROGRESS</div>
+          <div class="p-bar" style="background:#e5e0f5;"><div style="width:100%"></div></div>
+          <div style="font-weight:700; font-size:10px; margin-top:6px;">Quest complete! Your Astro Helmet is waiting 🎁</div>
+        </div>
+        <div class="p-cta sun">🎁 Claim your reward!</div>
+      </div>
+      <p class="cap">Progress you watch happen</p>
+    </div>
+    <div>
+      <div class="phone p-center">
+        <div class="p-label" style="color:var(--muted); margin-top:8px;">QUEST COMPLETE</div>
+        <div class="p-h">🚀 Space Explorer</div>
+        <div class="p-card"><div class="p-big" style="margin-top:4px;">🧑‍🚀</div><div class="p-h" style="font-size:13px;">Astro Helmet</div><div class="p-sub">added to your collection</div></div>
+        <div class="p-sub" style="margin-top:10px;">You earned it - 3 lessons, all yours 💪</div>
+        <div class="p-cta grape">Pick your next quest →</div>
+      </div>
+      <p class="cap">Chosen reward, earned</p>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="p-h" style="margin-top:2px;">Pick your next quest</div>
+        <div class="p-sub">Picked for you, based on how you learn ✨</div>
+        <div class="p-card"><b>🥷 Number Ninja</b> · Math · 3 lessons<div class="why">✨ You got every fraction question right - ready for level 2?</div></div>
+        <div class="p-card"><b>🧙 Word Wizard</b> · English · 3 lessons<div class="why">✨ Haven't tried English yet - short, see if you like it</div></div>
+        <div class="p-card"><b>🔴 Mission to Mars</b> · Science · 5<div class="why">✨ You're fast at science - a bigger challenge</div></div>
+      </div>
+      <p class="cap">AI suggests, student chooses</p>
+    </div>
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>8</span></div>
+</section>
+
+<!-- 9 · metrics -->
+<section class="slide">
+  <p class="kicker">Measurement</p>
+  <h2>Three metrics, three guardrails</h2>
+  <div class="mgrid">
+    <div class="mcard">
+      <div class="mnum">PRIMARY</div>
+      <div class="mname">Lesson-4 conversion</div>
+      <div class="mwhy">% of new students completing a 4th lesson within 14 days. This <em>is</em> the cliff - if Quests works, it moves first.</div>
+    </div>
+    <div class="mcard mint">
+      <div class="mnum">HABIT</div>
+      <div class="mname">D7 retention</div>
+      <div class="mwhy">Short quests should create a reason to return tomorrow. D7 shows a habit forming, not just a longer first session.</div>
+    </div>
+    <div class="mcard sun">
+      <div class="mnum">DEPTH</div>
+      <div class="mname">Lessons per student, first 14 days</div>
+      <div class="mwhy">Learning depth, not just survival. Flat here + up elsewhere = students poking at UI, not learning.</div>
+    </div>
+  </div>
+  <div class="guard">
+    <b>Learning-quality guardrails (must not degrade):</b> quiz accuracy per lesson · mid-lesson abandonment · time per lesson.
+    More sessions with worse accuracy is a <b>failure</b>, even if the retention chart looks great.
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>9</span></div>
+</section>
+
+<!-- 10 · A/B + recommendation -->
+<section class="slide">
+  <p class="kicker">A/B test &amp; recommendation</p>
+  <h2>One test, clear decision rules</h2>
+  <div class="ab">
+    <div class="card"><h4>Setup</h4><p><b>New signups only</b>, 50/50 at account creation, stratified by grade. Control: current app. Experiment: + Quests after the first completed lesson.</p></div>
+    <div class="card"><h4>Sizing &amp; duration <span style="text-transform:none;">(assumptions labeled)</span></h4><p>Baseline lesson-4 conversion ~30%; detect <b>+5pp</b> at 80% power → ~1,400/arm. At ~500 signups/week: ~6 weeks enrollment + 14-day windows ≈ <b>8 weeks</b>.</p></div>
+    <div class="card"><h4>Ship / iterate</h4><p><b>Ship</b> if +5pp significant with flat guardrails. <b>Iterate</b> if positive but short - find where the loop leaks.</p></div>
+    <div class="card"><h4>Rethink / fix first</h4><p><b>Rethink</b> if flat despite &gt;60% adoption - the hypothesis was wrong, and that's worth knowing. <b>Fix discovery first</b> if adoption &lt;40% - we tested a feature nobody saw.</p></div>
+  </div>
+  <div class="reco">
+    <b>Recommendation:</b> build Quests and test it with new signups. It attacks the most plausible root cause - no meaningful short-term goal - with one contained feature, uses AI only where personalization genuinely needs it, and the test tells us clearly whether the hypothesis was right.
+  </div>
+  <div class="footer"><span>Learnify · Quests</span><span>10</span></div>
+</section>
+
+</body>
+</html>
