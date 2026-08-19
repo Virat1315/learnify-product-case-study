@@ -190,6 +190,10 @@ Build Quests and A/B test it with new signups. It attacks the most plausible roo
 
 ### Running the prototype
 
+Easiest: it's live at **https://learnify-quests.vercel.app**
+
+Or locally:
+
 ```
 cd prototype
 npm install

@@ -2,6 +2,8 @@
 
 Reducing the lesson-3 drop-off with **Quests**: short, self-chosen learning goals with a reward the student picks upfront.
 
+**Live prototype: https://learnify-quests.vercel.app** (nothing to install, takes ~2 minutes to click through)
+
 ## What's here
 
 | File | What it is |
